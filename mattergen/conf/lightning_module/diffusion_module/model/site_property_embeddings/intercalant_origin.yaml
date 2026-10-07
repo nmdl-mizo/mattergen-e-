@@ -1,0 +1,10 @@
+_target_: mattergen.property_embeddings.PropertyEmbedding
+name: intercalant_origin
+unconditional_embedding_module:
+  _target_: mattergen.property_embeddings.EmbeddingVector
+  hidden_dim: ${lightning_module.diffusion_module.model.gemnet.node_dim}
+conditional_embedding_module:
+  _target_: mattergen.diffusion.model_utils.CategoryValueEncoding
+  d_model: ${lightning_module.diffusion_module.model.gemnet.node_dim}
+  n_classes: 3
+  learn_nan_embedding: True

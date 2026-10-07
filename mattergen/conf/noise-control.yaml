@@ -1,0 +1,21 @@
+hydra:
+  run:
+    dir: ${oc.env:OUTPUT_DIR,outputs/singlerun/${now:%Y-%m-%d}/${now:%H-%M-%S}}
+
+auto_resume: True
+
+defaults:
+  - data_module: mp_20_curated
+  - trainer: default
+  - lightning_module: default
+  - lightning_module/diffusion_module: noise-control
+  - lightning_module/diffusion_module/model: noise-control
+  - lightning_module/diffusion_module/corruption: noise-control
+
+data_module:
+  site_structures:
+    - "noise"
+
+lightning_module:
+  optimizer_partial:
+    lr: 3e-4

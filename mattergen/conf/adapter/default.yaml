@@ -1,0 +1,18 @@
+pretrained_name: null
+model_path: null
+load_epoch: last
+full_finetuning: true
+
+adapter:
+  # these arguments are used to initialize GemNetTAdapter
+  # more args are added by the finetuning script during runtime
+  _target_: mattergen.adapter.GemNetTAdapter
+  property_embeddings: {}
+  property_embeddings_adapt: {}
+  site_property_embeddings: {}
+  site_property_embeddings_adapt: {}
+
+defaults:
+  - /lightning_module/diffusion_module/model/property_embeddings@adapter.property_embeddings_adapt.formation_energy_per_atom: formation_energy_per_atom
+  - /lightning_module/diffusion_module/model/property_embeddings@adapter.property_embeddings_adapt.dft_band_gap: dft_band_gap
+  - /lightning_module/diffusion_module/model/property_embeddings@adapter.property_embeddings_adapt.energy_above_hull: energy_above_hull

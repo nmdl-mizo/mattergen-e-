@@ -1,0 +1,15 @@
+_target_: mattergen.diffusion.lightning_module.DiffusionLightningModule
+optimizer_partial:
+  lr: 2e-4
+  _target_: torch.optim.AdamW
+  _partial_: true
+  weight_decay: 1e-3
+scheduler_partials:
+  - scheduler:
+      _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+      T_max: ${trainer.max_epochs}
+      eta_min: 1e-10
+      _partial_: true
+    interval: epoch
+    frequency: 1
+    strict: true

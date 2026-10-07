@@ -1,0 +1,133 @@
+[tool.black]
+line-length = 100
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = [
+    "mattergen",
+]
+
+[project]
+name = "mattergen"
+version = "1.0"
+requires-python = ">= 3.10"
+description = "MatterGen-e- is a modified version of MatterGen with support for local electronic descriptors."
+readme = "README.md"
+license = "MIT"
+urls.repository = "https://github.com/nmdl-mizo/mattergen-e-"
+classifiers = [
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Chemistry",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+
+dependencies = [
+"ase>=3.22.1",
+"autopep8",
+"cachetools",
+"contextlib2",
+"emmet-core>=0.84.2",  # keep up-to-date together with pymatgen, atomate2
+"fire", # see https://github.com/google/python-fire
+"huggingface-hub",
+"hydra-core==1.3.1",
+"hydra-joblib-launcher==1.1.5",
+"jupyterlab>=4.2.5",
+"lmdb<2.0",  # lmdb 2.0 forbids opening the same environment twice in one process
+"matplotlib==3.8.4",
+"matscipy>=0.7.0",
+"monty==2024.7.30 ",  # keep up-to-date together with pymatgen, atomate2
+"notebook>=7.2.2",
+"numpy<2.0",  # pin numpy before breaking changes in 2.0
+"omegaconf==2.3.0",
+"pymatgen>=2024.6.4",
+"pylint",
+"pytest",
+"pytorch-lightning==2.0.6",
+"seaborn>=0.13.2",  # for plotting
+"setuptools<81",  # setuptools 81 removes pkg_resources, which pytorch-lightning 2.0.6 imports
+"sympy>=1.11.1",
+"torch==2.7.0+cu128; sys_platform == 'linux'",
+"torchvision==0.22.0+cu128; sys_platform == 'linux'",
+"torchaudio==2.7.0+cu128; sys_platform == 'linux'",
+"torch==2.4.1; sys_platform == 'darwin'",
+"torchvision==0.19.1; sys_platform == 'darwin'",
+"torchaudio==2.4.1; sys_platform == 'darwin'",
+"torch_cluster",
+"torch_geometric>=2.5",
+"torch_scatter",
+"torch_sparse",
+"tqdm",
+"wandb>=0.10.33",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: end-to-end tests that train a model on one batch (deselect with '-m \"not slow\"')",
+]
+
+[tool.mypy]
+python_version = "3.10"
+# Many scientific dependencies (tqdm, torch_scatter, matscipy, ...) ship no type stubs.
+ignore_missing_imports = true
+# Only the code modified in this repository is kept mypy-clean; a run over the whole
+# package still reports errors in code inherited from upstream MatterGen.
+
+[tool.setuptools.packages.find]
+include = ["mattergen*"]
+
+[tool.uv.sources]
+torch = { index = "pytorch_linux_cu128",  marker = "sys_platform == 'linux'" }
+torchvision = { index = "pytorch_linux_cu128",  marker = "sys_platform == 'linux'" }
+torchaudio = { index = "pytorch_linux_cu128",  marker = "sys_platform == 'linux'" }
+pyg-lib = [
+  { url = "https://data.pyg.org/whl/torch-2.7.0%2Bcu128/pyg_lib-0.4.0%2Bpt27cu128-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/pyg_lib-0.4.0%2Bpt24-cp310-cp310-macosx_14_0_universal2.whl",  marker = "sys_platform == 'darwin'" }
+]
+torch_cluster = [
+  { url = "https://data.pyg.org/whl/torch-2.7.0%2Bcu128/torch_cluster-1.6.3%2Bpt27cu128-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/torch_cluster-1.6.3-cp310-cp310-macosx_10_9_universal2.whl",  marker = "sys_platform == 'darwin'"  }
+]
+
+torch_scatter = [
+  { url = "https://data.pyg.org/whl/torch-2.7.0%2Bcu128/torch_scatter-2.1.2%2Bpt27cu128-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/torch_scatter-2.1.2-cp310-cp310-macosx_10_9_universal2.whl",  marker = "sys_platform == 'darwin'"  }
+]
+
+torch_sparse = [
+  { url = "https://data.pyg.org/whl/torch-2.7.0%2Bcu128/torch_sparse-0.6.18%2Bpt27cu128-cp310-cp310-linux_x86_64.whl",  marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/torch_sparse-0.6.18-cp310-cp310-macosx_11_0_universal2.whl",  marker = "sys_platform == 'darwin'"  }
+]
+
+[[tool.uv.index]]
+name = "pytorch_linux_cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+
+[project.scripts]
+mattergen-generate = "mattergen.scripts.generate:_main"
+mattergen-train = "mattergen.scripts.run:mattergen_main"
+mattergen-finetune = "mattergen.scripts.finetune:mattergen_finetune"
+mattergen-evaluate-un = "mattergen.scripts.evaluate_un:_main"
+mattergen-decode-ados = "mattergen.scripts.decode_ados:_main"
+csv-to-dataset = "mattergen.scripts.csv_to_dataset:main"
