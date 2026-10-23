@@ -6,12 +6,12 @@
 
 <h4 align="center">
 
-[![arXiv](https://img.shields.io/badge/arXiv-2605.01286-blue.svg?logo=arxiv&logoColor=white.svg)](https://arxiv.org/abs/2605.01286)
-[![DOI](https://img.shields.io/badge/DOI-10.48550%2FarXiv.2605.01286-blue)](https://doi.org/10.48550/arXiv.2605.01286)
+[![npj Comput Mater](https://img.shields.io/badge/npj%20Comput%20Mater-12%2C%20332%20%282026%29-blue.svg)](https://www.nature.com/articles/s41524-026-02322-4)
+[![DOI](https://img.shields.io/badge/DOI-10.1038%2Fs41524--026--02322--4-blue)](https://doi.org/10.1038/s41524-026-02322-4)
 [![Requires Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg?logo=python&logoColor=white)](https://python.org/downloads)
 </h4>
 
-**MatterGen-e-** extends [MatterGen](https://github.com/microsoft/mattergen) so that it generates a **per-atom electronic descriptor together with the crystal structure**: the atom-projected density of states (ADOS) or the Bader charge is denoised jointly with the lattice, the atomic positions and the atomic numbers. It is the reference implementation of *Inverse Materials Design via Joint Generation of Crystal Structures and Local Electronic Descriptors* ([arXiv:2605.01286](https://arxiv.org/abs/2605.01286)).
+**MatterGen-e-** extends [MatterGen](https://github.com/microsoft/mattergen) so that it generates a **per-atom electronic descriptor together with the crystal structure**: the atom-projected density of states (ADOS) or the Bader charge is denoised jointly with the lattice, the atomic positions and the atomic numbers. It is the reference implementation of *Inverse materials design via joint generation of crystal structures and local electronic descriptors*, published in *npj Computational Materials* ([doi:10.1038/s41524-026-02322-4](https://doi.org/10.1038/s41524-026-02322-4)).
 
 > [!IMPORTANT]
 > This repository is a modified version of [microsoft/mattergen](https://github.com/microsoft/mattergen), based on a snapshot of the upstream repository taken in September 2025. The original work is Copyright (c) Microsoft Corporation, the modifications are Copyright (c) 2025-2026 [nmdl-mizo](https://github.com/nmdl-mizo), and both are released under the [MIT License](LICENSE). This repository is not affiliated with or endorsed by Microsoft.
@@ -164,16 +164,18 @@ The `structure` column of the CSV is `U` for the representative of a duplicate g
 
 If you use this code or the released models, please cite:
 
+> Okuda, I., Takahara, I. & Mizoguchi, T. Inverse materials design via joint generation of crystal structures and local electronic descriptors. *npj Comput Mater* **12**, 332 (2026). https://doi.org/10.1038/s41524-026-02322-4
+
 ```bibtex
-@misc{Okuda2026MatterGenE,
-  title         = {Inverse Materials Design via Joint Generation of Crystal Structures and Local Electronic Descriptors},
-  author        = {Okuda, Ibuki and Takahara, Izumi and Mizoguchi, Teruyasu},
-  year          = {2026},
-  eprint        = {2605.01286},
-  archivePrefix = {arXiv},
-  primaryClass  = {cond-mat.mtrl-sci},
-  doi           = {10.48550/arXiv.2605.01286},
-  url           = {https://doi.org/10.48550/arXiv.2605.01286},
+@article{Okuda2026MatterGenE,
+  title   = {Inverse materials design via joint generation of crystal structures and local electronic descriptors},
+  author  = {Okuda, Ibuki and Takahara, Izumi and Mizoguchi, Teruyasu},
+  journal = {npj Computational Materials},
+  volume  = {12},
+  pages   = {332},
+  year    = {2026},
+  doi     = {10.1038/s41524-026-02322-4},
+  url     = {https://doi.org/10.1038/s41524-026-02322-4},
 }
 ```
 
